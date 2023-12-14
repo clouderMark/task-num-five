@@ -42,8 +42,8 @@ const globalTheme = createTheme({
     },
     third: {
       main: '#edf0f5',
-      light: 'rgba(255, 255, 255, .6)',
-      dark: 'rgba(255, 255, 255, .3)',
+      light: '#808080',
+      dark: '#6A6C71',
     },
     fourth: {
       main: '#6f6f6f',
@@ -103,7 +103,6 @@ export const theme = createTheme({
         root: {
           padding: '0 !important',
           display: 'flex',
-          flexDirection: 'column',
         },
       },
     },
