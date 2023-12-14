@@ -10,9 +10,9 @@ const RegionSelect = () => {
 
   return (
     <FormControl sx={styles.control}>
-      <InputLabel sx={styles.label}>Region</InputLabel>
+      <InputLabel sx={styles.label} id='select-region'>Region</InputLabel>
       <Select
-        labelId="demo-simple-select-label"
+        labelId="select-region"
         value={`${region}`}
         label="Region"
         onChange={(e) => dispatch(setRegion(+e.target.value))}
