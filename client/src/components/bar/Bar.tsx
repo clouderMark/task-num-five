@@ -6,6 +6,7 @@ import {useGetAllUsersMutation} from '../../redux/dataApi';
 import {showAlert} from '../../redux/alertSlice';
 import {setRows} from '../../redux/tableSlice';
 import RegionSelect from './regionSelect/RegionSelect';
+import InputErrors from './inputErrors/InputErrors';
 
 const Bar = () => {
   const dispatch = useAppDispatch();
@@ -26,8 +27,9 @@ const Bar = () => {
   return (
     <Container maxWidth={false}>
       <AppBar sx={{backgroundColor: theme.palette.first.dark, height: '70px'}}>
-        <Toolbar sx={{display: 'flex', alignItems: 'flex-start'}}>
+        <Toolbar>
           <RegionSelect />
+          <InputErrors />
         </Toolbar>
       </AppBar>
     </Container>
