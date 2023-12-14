@@ -4,11 +4,13 @@ import type {RootState} from './store';
 interface IInitialState {
   region: number;
   errors: number;
+  seed: number;
 }
 
 const initialState: IInitialState = {
   region: 0,
   errors: 0,
+  seed: 0,
 };
 
 export const controlSlice = createSlice({
@@ -28,8 +30,11 @@ export const controlSlice = createSlice({
         state.errors = 1000;
       }
     },
+    setSeed: (state, actions: PayloadAction<number>) => {
+      state.seed = actions.payload;
+    },
   },
 });
 
 export const selectConrol = (state: RootState) => state.control;
-export const {setRegion, setErrors, handleBlurErrors} = controlSlice.actions;
+export const {setRegion, setErrors, handleBlurErrors, setSeed} = controlSlice.actions;

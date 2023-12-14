@@ -1,12 +1,12 @@
 import {useEffect} from 'react';
 import {AppBar, Container, Toolbar} from '@mui/material';
 import {useAppDispatch} from '../../redux/hooks';
-import {theme} from '../../styles/theme';
 import {useGetAllUsersMutation} from '../../redux/dataApi';
 import {showAlert} from '../../redux/alertSlice';
 import {setRows} from '../../redux/tableSlice';
 import RegionSelect from './regionSelect/RegionSelect';
 import InputErrors from './inputErrors/InputErrors';
+import Seed from './seedInput/Seed';
 
 const Bar = () => {
   const dispatch = useAppDispatch();
@@ -26,10 +26,11 @@ const Bar = () => {
 
   return (
     <Container maxWidth={false}>
-      <AppBar sx={{backgroundColor: theme.palette.first.dark, height: '70px'}}>
+      <AppBar>
         <Toolbar>
           <RegionSelect />
           <InputErrors />
+          <Seed />
         </Toolbar>
       </AppBar>
     </Container>

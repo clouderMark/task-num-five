@@ -101,8 +101,10 @@ export const theme = createTheme({
     MuiToolbar: {
       styleOverrides: {
         root: {
-          padding: '0 !important',
           display: 'flex',
+          justifyContent: 'space-between',
+          px: 5,
+          backgroundColor: globalTheme.palette.first.dark,
         },
       },
     },
