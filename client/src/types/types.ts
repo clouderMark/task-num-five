@@ -6,7 +6,7 @@ export interface ICustomError {
 }
 
 export interface IReq {
-  region: string;
+  region: number;
   errors: number;
   seed: number;
 }
@@ -17,4 +17,9 @@ export interface IUser {
   name: string;
   address: string;
   phone: number;
+}
+
+export interface ICell {
+  field: string;
+  value: string;
 }
