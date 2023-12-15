@@ -39,6 +39,7 @@ const Loader = () => {
               backgroundColor: theme.palette.first.main,
             },
             position: 'fixed',
+            zIndex: 9999,
           }}
         >
           <LinearProgress variant="determinate" value={progress} />
