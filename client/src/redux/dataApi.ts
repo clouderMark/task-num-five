@@ -13,7 +13,7 @@ export const dataApi = createApi({
     getAllUsers: builder.mutation<IUser[], IReq>({
       query: (data) => ({
         url: '/getall',
-        method: 'GET',
+        method: 'PUT',
         body: {...data},
       }),
       // transformResponse: (response: IUser[]): IData[] =>
