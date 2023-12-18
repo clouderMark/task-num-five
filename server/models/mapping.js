@@ -1,13 +1,17 @@
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
+// import { recordDataToDb } from './recordDataToDb';
 
-// const Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-// const userSchema = new Schema({
-//   name: { type: String, unique: true, required: true },
-//   email: { type: String, unique: true, required: true },
-//   password: { type: String, required: true },
-// }, {timestamps: true});
+const nameSchema = new Schema({
+  name: { type: String, unique: true, required: true },
+  index: { type: Number, unique: true, require: true },
+});
 
-// const User = mongoose.model('User', userSchema);
+const Surname = mongoose.model('Surname', nameSchema);
+const MaleName = mongoose.model('MaleName', nameSchema);
+const FemaleName = mongoose.model('FemaleName', nameSchema);
 
-// export { User };
+export { Surname, MaleName, FemaleName };
+
+// recordDataToDb();
