@@ -4,6 +4,7 @@ import seedrandom from 'seedrandom';
 import { sum } from './sum.js';
 import { makeRussianFemaleSurname } from './makeRussianFemaleSurname.js';
 import { makeLess } from './makeLess.js';
+import { createId } from './createId.js';
 
 const surnameLength = (async () => UserModel.surnameLength())();
 const maleNameLength = (async () => UserModel.maleNameLength())();
@@ -21,37 +22,42 @@ class User {
 
       let users = [];
 
-      if (region === 2) {
-        users = sequence.map(async (el) => {
-          const isMan = sum(el) % 2 === 0;
-          const surnameDataLength = await surnameLength;
-          const maleDataLength = await maleNameLength;
-          const femaleDataNameLength = await femaleNameLength;
+      // if (region === 2) {
+      users = sequence.map(async (el) => {
+        const isMan = sum(el) % 2 === 0;
+        const surnameDataLength = await surnameLength;
+        const maleDataLength = await maleNameLength;
+        const femaleDataNameLength = await femaleNameLength;
 
-          const surnameIndex = makeLess(el, surnameDataLength);
+        const surnameIndex = makeLess(el, surnameDataLength);
 
-          let surname = '';
-          let name = '';
+        let surname = '';
+        let name = '';
+        let id = '';
 
-          if (isMan) {
-            surname = await UserModel.getSurname(surnameIndex).then(
-              (data) => data.name
-            );
-            name = await UserModel.getMaleName(
-              makeLess(el, maleDataLength)
-            ).then((data) => data.name);
-          } else {
-            surname = await UserModel.getSurname(surnameIndex).then((data) =>
-              makeRussianFemaleSurname(data.name)
-            );
-            name = await UserModel.getFemaleName(
-              makeLess(el, femaleDataNameLength)
-            ).then((data) => data.name);
-          }
+        if (isMan) {
+          const userSurname = await UserModel.getSurname(surnameIndex);
+          const userName = await UserModel.getMaleName(
+            makeLess(el, maleDataLength)
+          );
 
-          return { name, surname };
-        });
-      }
+          surname = userSurname.name;
+          name = userName.name;
+          id = createId(userSurname._id, userName._id);
+        } else {
+          const userSurname = await UserModel.getSurname(surnameIndex);
+          const userName = await UserModel.getFemaleName(
+            makeLess(el, femaleDataNameLength)
+          );
+
+          surname = makeRussianFemaleSurname(userSurname.name);
+          name = userName.name;
+          id = createId(userSurname._id, userName._id);
+        }
+
+        return { name, surname, id };
+      });
+      // }
 
       console.log(await Promise.all(users));
 
