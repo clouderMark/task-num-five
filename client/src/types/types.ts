@@ -6,15 +6,18 @@ export interface ICustomError {
 }
 
 export interface IReq {
-  region: number;
+  region: ERegion;
   errors: number;
   seed: number;
 }
 
-export interface IUser {
-  number: string;
-  id: string;
+interface IName {
   name: string;
+  surname: string;
+}
+
+export interface IUser extends IName {
+  id: string;
   address: string;
   phone: number;
 }
@@ -22,4 +25,11 @@ export interface IUser {
 export interface ICell {
   field: string;
   value: string;
+}
+
+export enum ERegion {
+  RANDOM,
+  USA,
+  RUSSIA,
+  POLAND,
 }

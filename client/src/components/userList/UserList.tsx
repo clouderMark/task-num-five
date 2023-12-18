@@ -7,34 +7,46 @@ import {showAlert} from '../../redux/alertSlice';
 import {Board} from '../Board';
 import TableCells from '../bar/TableCells';
 import {headCells} from './headCells';
+import {closeLoader} from '../../redux/loaderSlice';
 
 const UserList = () => {
   const dispatch = useAppDispatch();
-  const [getData, {data, isError, error}] = useGetAllUsersMutation();
+  const [getData, {data, isError, error, isSuccess}] = useGetAllUsersMutation();
   const {region, errors, seed} = useAppSelector(selectConrol);
 
   useEffect(() => {
     if (isError && 'data' in error!) {
       dispatch(showAlert({message: error.data.message, statusCode: error.status}));
+      dispatch(closeLoader());
     }
   }, [isError]);
 
   useEffect(() => {
-    getData({region, errors, seed});
-  }, []);
+    if (seed) {
+      getData({region, errors, seed});
+    }
+  }, [region, errors, seed]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(closeLoader());
+    }
+  }, [isSuccess]);
+
+  console.log(data);
 
   return (
     <>
-      {data ? (
+      {data?.length ? (
         <Board
           tableHeadCells={<TableCells cells={headCells} />}
           tableBodyCells={
             <>
-              {data.map((el) => (
-                <TableRow hover>
+              {data.map((el, i) => (
+                <TableRow hover key={i}>
+                  <TableCell>{i + 1}</TableCell>
                   <TableCell>{el.id}</TableCell>
-                  <TableCell>{el.number}</TableCell>
-                  <TableCell>{el.name}</TableCell>
+                  <TableCell>{el.name} {el.surname}</TableCell>
                   <TableCell>{el.address}</TableCell>
                   <TableCell>{el.phone}</TableCell>
                 </TableRow>

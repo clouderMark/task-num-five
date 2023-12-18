@@ -1,20 +1,21 @@
+import {ERegion} from '../../../types/types';
 import {IMenuItem} from './types';
 
 export const menuItems: IMenuItem[] = [
   {
-    value: 0,
+    value: ERegion.RANDOM,
     name: 'Random',
   },
   {
-    value: 1,
+    value: ERegion.USA,
     name: 'USA',
   },
   {
-    value: 2,
+    value: ERegion.RUSSIA,
     name: 'Russia',
   },
   {
-    value: 3,
+    value: ERegion.POLAND,
     name: 'Poland',
   },
 ];
