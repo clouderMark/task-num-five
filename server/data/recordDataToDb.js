@@ -2,7 +2,7 @@ import { createReadStream } from 'node:fs';
 import path from 'node:path';
 import { createInterface } from 'node:readline';
 import { fileURLToPath } from 'node:url';
-import { FemaleName, MaleName, Surname } from './mapping';
+import { FemaleName, MaleName, Surname } from '../models/mapping';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
