@@ -24,8 +24,7 @@ interface IAdress {
 
 export interface IUser extends IName, IAdress {
   id: string;
-  phone: number;
-
+  phone: string;
 }
 
 export interface ICell {

@@ -61,9 +61,12 @@ class User {
 
         const city = await UserModel.getCityName(makeLess(el, cityDataLength)).then((data) => data.name);
         const street = await UserModel.getSreetName(makeLess(el, streetDataLength)).then((data) => data.name);
-        const house = `${el}`.slice(0, 2);
+        const elString = `${el}`;
+        const house = elString.slice(0, 2);
+        let phone = elString.replace(/[a-zA-Z]/g, '').slice(0, 8);
+        phone = elString[0] == 0 || elString[0] == 1 ? `+375(25)${phone}` : elString[0] % 2 === 0 ? `+375(29)${phone}` : `+375(44)${phone}`
 
-        return { name, surname, id, city, street, house};
+        return { name, surname, id, city, street, house, phone};
       });
       // }
 
