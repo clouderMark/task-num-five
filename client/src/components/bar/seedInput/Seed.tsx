@@ -1,4 +1,4 @@
-import {ChangeEvent, useEffect} from 'react';
+import {ChangeEvent} from 'react';
 import {Box, IconButton, TextField, Typography} from '@mui/material';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
@@ -14,12 +14,6 @@ const Seed = () => {
     dispatch(setSeed(+e.target.value));
   };
 
-  useEffect(() => {
-    setGeneretedSeed();
-  }, []);
-
-  const setGeneretedSeed = () => dispatch(setSeed(generateRandomValue()));
-
   return (
     <Box sx={{display: 'flex', alignItems: 'center'}}>
       <Typography sx={styles.text}>Seed: </Typography>
@@ -31,7 +25,7 @@ const Seed = () => {
         type="number"
         sx={styles.input}
       />
-      <IconButton sx={styles.button} onClick={() => setGeneretedSeed()}>
+      <IconButton sx={styles.button} onClick={() => dispatch(setSeed(generateRandomValue()))}>
         <ShuffleIcon />
       </IconButton>
     </Box>

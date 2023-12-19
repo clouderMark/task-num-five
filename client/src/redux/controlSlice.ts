@@ -1,5 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import type {RootState} from './store';
+import {generateRandomValue} from '../components/bar/seedInput/generateRandomValue';
 
 interface IInitialState {
   region: number;
@@ -10,7 +11,7 @@ interface IInitialState {
 const initialState: IInitialState = {
   region: 0,
   errors: 0,
-  seed: 0,
+  seed: generateRandomValue(),
 };
 
 export const controlSlice = createSlice({
