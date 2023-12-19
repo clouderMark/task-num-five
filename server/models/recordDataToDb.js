@@ -1,6 +1,6 @@
 import { createReadStream } from 'node:fs';
 import path from 'node:path';
-import {createInterface} from 'node:readline';
+import { createInterface } from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { FemaleName, MaleName, Surname } from './mapping';
 
@@ -9,17 +9,21 @@ const __dirname = path.dirname(__filename);
 
 let i = 0;
 
-export const recordDataToDb = async() => {
-  const filePath = path.join(__dirname, '../data/female-names.txt');
+const recordDataToDb = async () => {
+  const filePath = path.join(__dirname, '../data/cities.txt');
   const fileStream = createReadStream(filePath);
 
   const rl = createInterface({
     input: fileStream,
-    crlfDelay: Infinity
+    crlfDelay: Infinity,
   });
 
   for await (const line of rl) {
-    await MaleName.create({name: line, index: i})
-    i++
+    try {
+      await City.create({ name: line, index: i });
+      i++;
+    } catch (e) {
+      console.log(e);
+    }
   }
-}
+};

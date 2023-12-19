@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-// import { recordDataToDb } from './recordDataToDb';
 
 const Schema = mongoose.Schema;
 
@@ -11,7 +10,7 @@ const nameSchema = new Schema({
 const Surname = mongoose.model('Surname', nameSchema);
 const MaleName = mongoose.model('MaleName', nameSchema);
 const FemaleName = mongoose.model('FemaleName', nameSchema);
+const City = mongoose.model('City', nameSchema);
 
-export { Surname, MaleName, FemaleName };
+export { Surname, MaleName, FemaleName, City };
 
-// recordDataToDb();
