@@ -1,4 +1,4 @@
-import { Surname, MaleName, FemaleName } from '../models/mapping.js';
+import { Surname, MaleName, FemaleName, City, Street } from '../models/mapping.js';
 import AppError from '../errors/AppError.js';
 
 
@@ -37,6 +37,30 @@ class User {
     const nameLength = await FemaleName.countDocuments();
 
     return nameLength;
+  }
+
+  async getCityName(index) {
+    const city = await City.findOne({index});
+
+    return city;
+  }
+
+  async cityLength() {
+    const cityLength = await City.countDocuments();
+
+    return cityLength;
+  }
+
+  async getSreetName(index) {
+    const street = await Street.findOne({index});
+
+    return street;
+  }
+
+  async streetLength() {
+    const streetLength = await City.countDocuments();
+
+    return streetLength;
   }
 
 }

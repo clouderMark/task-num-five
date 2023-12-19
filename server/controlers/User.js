@@ -9,6 +9,8 @@ import { createId } from './createId.js';
 const surnameLength = (async () => UserModel.surnameLength())();
 const maleNameLength = (async () => UserModel.maleNameLength())();
 const femaleNameLength = (async () => UserModel.femaleNameLength())();
+const cityLength = (async () => UserModel.cityLength())();
+const streetLength = (async () => UserModel.streetLength())();
 
 class User {
   async getAll(req, res, next) {
@@ -28,6 +30,8 @@ class User {
         const surnameDataLength = await surnameLength;
         const maleDataLength = await maleNameLength;
         const femaleDataNameLength = await femaleNameLength;
+        const cityDataLength = await cityLength;
+        const streetDataLength = await streetLength;
 
         const surnameIndex = makeLess(el, surnameDataLength);
 
@@ -55,7 +59,11 @@ class User {
           id = createId(userSurname._id, userName._id);
         }
 
-        return { name, surname, id };
+        const city = await UserModel.getCityName(makeLess(el, cityDataLength)).then((data) => data.name);
+        const street = await UserModel.getSreetName(makeLess(el, streetDataLength)).then((data) => data.name);
+        const house = `${el}`.slice(0, 2);
+
+        return { name, surname, id, city, street, house};
       });
       // }
 
