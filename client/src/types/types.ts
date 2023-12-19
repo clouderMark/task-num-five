@@ -16,10 +16,16 @@ interface IName {
   surname: string;
 }
 
-export interface IUser extends IName {
+interface IAdress {
+  city: string;
+  street: string;
+  house: string;
+}
+
+export interface IUser extends IName, IAdress {
   id: string;
-  address: string;
   phone: number;
+
 }
 
 export interface ICell {

@@ -47,7 +47,7 @@ const UserList = () => {
                   <TableCell>{i + 1}</TableCell>
                   <TableCell>{el.id}</TableCell>
                   <TableCell>{el.name} {el.surname}</TableCell>
-                  <TableCell>{el.address}</TableCell>
+                  <TableCell>{el.city}, {el.street}, д: {el.house}</TableCell>
                   <TableCell>{el.phone}</TableCell>
                 </TableRow>
               ))}
