@@ -5,6 +5,7 @@ import { sum } from './sum.js';
 import { makeRussianFemaleSurname } from './makeRussianFemaleSurname.js';
 import { makeLess } from './makeLess.js';
 import { createId } from './createId.js';
+import { makeErrors } from './makeErrors/makeErrors.js';
 
 class User {
   async getAll(req, res, next) {
@@ -53,18 +54,30 @@ class User {
           id = createId(userSurname._id, userName._id);
         }
 
-        const city = await UserModel.getCityName(makeLess(el, cityLength)).then((data) => data.name);
-        const street = await UserModel.getSreetName(makeLess(el, streetLength)).then((data) => data.name);
+        const city = await UserModel.getCityName(makeLess(el, cityLength)).then(
+          (data) => data.name
+        );
+        const street = await UserModel.getSreetName(
+          makeLess(el, streetLength)
+        ).then((data) => data.name);
         const elString = `${el}`;
         const house = elString.slice(0, 2);
         let phone = elString.replace(/[a-zA-Z]/g, '').slice(0, 8);
-        phone = elString[0] == 0 || elString[0] == 1 ? `+375(25)${phone}` : elString[0] % 2 === 0 ? `+375(29)${phone}` : `+375(44)${phone}`
+        phone =
+          elString[0] == 0 || elString[0] == 1
+            ? `+375(25)${phone}`
+            : elString[0] % 2 === 0
+            ? `+375(29)${phone}`
+            : `+375(44)${phone}`;
 
-        return { name, surname, id, city, street, house, phone};
+        let userData = { name, surname, id, city, street, house, phone };
+        userData = makeErrors(errors, el, userData);
+
+        return userData;
       });
       // }
 
-      console.log(await Promise.all(users));
+      // console.log(await Promise.all(users));
 
       res.json(await Promise.all(users));
     } catch (e) {
