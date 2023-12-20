@@ -6,12 +6,6 @@ import { makeRussianFemaleSurname } from './makeRussianFemaleSurname.js';
 import { makeLess } from './makeLess.js';
 import { createId } from './createId.js';
 
-const surnameLength = (async () => UserModel.surnameLength())();
-const maleNameLength = (async () => UserModel.maleNameLength())();
-const femaleNameLength = (async () => UserModel.femaleNameLength())();
-const cityLength = (async () => UserModel.cityLength())();
-const streetLength = (async () => UserModel.streetLength())();
-
 class User {
   async getAll(req, res, next) {
     try {
@@ -27,13 +21,13 @@ class User {
       // if (region === 2) {
       users = sequence.map(async (el) => {
         const isMan = sum(el) % 2 === 0;
-        const surnameDataLength = await surnameLength;
-        const maleDataLength = await maleNameLength;
-        const femaleDataNameLength = await femaleNameLength;
-        const cityDataLength = await cityLength;
-        const streetDataLength = await streetLength;
+        const surnameLength = await UserModel.surnameLength();
+        const maleNameLength = await UserModel.maleNameLength();
+        const femaleNameLength = await UserModel.femaleNameLength();
+        const cityLength = await UserModel.cityLength();
+        const streetLength = await UserModel.streetLength();
 
-        const surnameIndex = makeLess(el, surnameDataLength);
+        const surnameIndex = makeLess(el, surnameLength);
 
         let surname = '';
         let name = '';
@@ -42,7 +36,7 @@ class User {
         if (isMan) {
           const userSurname = await UserModel.getSurname(surnameIndex);
           const userName = await UserModel.getMaleName(
-            makeLess(el, maleDataLength)
+            makeLess(el, maleNameLength)
           );
 
           surname = userSurname.name;
@@ -51,7 +45,7 @@ class User {
         } else {
           const userSurname = await UserModel.getSurname(surnameIndex);
           const userName = await UserModel.getFemaleName(
-            makeLess(el, femaleDataNameLength)
+            makeLess(el, femaleNameLength)
           );
 
           surname = makeRussianFemaleSurname(userSurname.name);
@@ -59,8 +53,8 @@ class User {
           id = createId(userSurname._id, userName._id);
         }
 
-        const city = await UserModel.getCityName(makeLess(el, cityDataLength)).then((data) => data.name);
-        const street = await UserModel.getSreetName(makeLess(el, streetDataLength)).then((data) => data.name);
+        const city = await UserModel.getCityName(makeLess(el, cityLength)).then((data) => data.name);
+        const street = await UserModel.getSreetName(makeLess(el, streetLength)).then((data) => data.name);
         const elString = `${el}`;
         const house = elString.slice(0, 2);
         let phone = elString.replace(/[a-zA-Z]/g, '').slice(0, 8);

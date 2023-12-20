@@ -1,8 +1,15 @@
+import memoizee from "memoizee";
 import { Surname, MaleName, FemaleName, City, Street } from '../models/mapping.js';
 import AppError from '../errors/AppError.js';
 
-
 class User {
+  constructor() {
+    this.surnameLength = memoizee(this.surnameLength);
+    this.maleNameLength = memoizee(this.maleNameLength);
+    this.femaleNameLength = memoizee(this.femaleNameLength);
+    this.cityLength = memoizee(this.cityLength);
+    this.streetLength = memoizee(this.streetLength);
+  }
   async getSurname(index) {
     const surname = await Surname.findOne({index});
 
