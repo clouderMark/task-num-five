@@ -28,7 +28,7 @@ const InputErrors = () => {
             value={errors}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
-            step={1}
+            step={0.25}
             max={10}
             sx={styles.slider}
           />
