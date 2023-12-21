@@ -6,6 +6,7 @@ import { makeRussianFemaleSurname } from './makeRussianFemaleSurname.js';
 import { makeLess } from './makeLess.js';
 import { createId } from './createId.js';
 import { makeErrors } from './makeErrors/makeErrors.js';
+import { makePhone } from './makePhone.js';
 
 class User {
   async getAll(req, res, next) {
@@ -62,16 +63,9 @@ class User {
         ).then((data) => data.name);
         const elString = `${el}`;
         const house = elString.slice(0, 2);
-        let phone = elString.replace(/[a-zA-Z]/g, '').slice(0, 8);
-        phone =
-          elString[0] == 0 || elString[0] == 1
-            ? `+375(25)${phone}`
-            : elString[0] % 2 === 0
-            ? `+375(29)${phone}`
-            : `+375(44)${phone}`;
+        const phone = makePhone(elString);
 
-        let userData = { name, surname, id, city, street, house, phone };
-        userData = makeErrors(errors, el, userData);
+        const userData = makeErrors(errors, el, { name, surname, id, city, street, house, phone });
 
         return userData;
       });
