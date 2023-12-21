@@ -1,6 +1,6 @@
 import {Box, Grid, Input, Slider, Typography} from '@mui/material';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
-import {handleBlurErrors, selectConrol, setErrors} from '../../../redux/controlSlice';
+import {handleBlurErrors, selectConrol, setErrors, setInputDelay} from '../../../redux/controlSlice';
 import {styles} from './styles';
 
 const InputErrors = () => {
@@ -8,10 +8,12 @@ const InputErrors = () => {
   const {errors} = useAppSelector(selectConrol);
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    dispatch(setInputDelay());
     dispatch(setErrors(newValue as number));
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setInputDelay());
     dispatch(setErrors(event.target.value === '' ? 0 : +event.target.value));
   };
 

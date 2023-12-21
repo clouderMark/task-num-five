@@ -28,6 +28,9 @@ export const loaderSlice = createSlice({
       })
       .addMatcher(dataApi.endpoints.getAllUsers.matchFulfilled, (state) => {
         state.isOpen = false;
+      })
+      .addMatcher(dataApi.endpoints.getAllUsers.matchRejected, (state) => {
+        state.isOpen = false;
       });
   },
 });

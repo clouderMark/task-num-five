@@ -9,6 +9,8 @@ export interface IReq {
   region: ERegion;
   errors: number;
   seed: number;
+  to: number;
+  from: number;
 }
 
 interface IName {
@@ -37,4 +39,8 @@ export enum ERegion {
   USA,
   RUSSIA,
   POLAND,
+}
+
+export enum USER {
+  AMOUNT = 10,
 }

@@ -11,12 +11,12 @@ import { makePhone } from './makePhone.js';
 class User {
   async getAll(req, res, next) {
     try {
-      const { region, errors, seed } = req.body;
+      const { region, errors, seed, from, to } = req.body;
 
       const randomSeed = seedrandom(seed);
-      const sequence = [...Array(10)].map(
+      const sequence = [...Array(to)].map(
         (el) => (el = +`${randomSeed()}`.split('.')[1])
-      );
+      ).slice(from, to);
 
       let users = [];
 
@@ -78,6 +78,14 @@ class User {
       next(AppError.badRequest(e.message));
     }
   }
+
+  // getMore(req, res, next) {
+  //   try {
+  //     const { region, errors, seed,  from } = req.body;
+  //   } catch (e) {
+  //     next(AppError.badRequest(e.message));
+  //   }
+  // }
 }
 
 export default new User();
