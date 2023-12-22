@@ -38,7 +38,7 @@ export enum ERegion {
   RANDOM,
   USA,
   RUSSIA,
-  POLAND,
+  GERMAN,
 }
 
 export enum USER {

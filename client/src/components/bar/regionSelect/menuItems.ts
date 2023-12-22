@@ -15,7 +15,7 @@ export const menuItems: IMenuItem[] = [
     name: 'Russia',
   },
   {
-    value: ERegion.POLAND,
-    name: 'Poland',
+    value: ERegion.GERMAN,
+    name: 'German',
   },
 ];
