@@ -7,11 +7,14 @@ import { createId } from './createId.js';
 import { makeErrors } from './makeErrors/makeErrors.js';
 import { makePhone } from './makePhone.js';
 import { regions } from './regions.js';
+import { checkReq } from './checkReq.js';
 
 class User {
   async getAll(req, res, next) {
     try {
       const { region, errors, seed, from, to } = req.body;
+
+      checkReq(region, errors, seed, from, to)
 
       const randomSeed = seedrandom(seed);
       const sequence = [...Array(to)]
