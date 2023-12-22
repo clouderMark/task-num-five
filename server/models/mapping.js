@@ -19,6 +19,12 @@ const AmericanFemaleName = mongoose.model('AmericanFemaleName', nameSchema);
 const AmericanCity = mongoose.model('AmericanCity', nameSchema);
 const AmericanStreet = mongoose.model('AmericanStreet', nameSchema);
 
+const GermanSurname = mongoose.model('GermanSurname', nameSchema);
+const GermanMaleName = mongoose.model('GermanMaleName', nameSchema);
+const GermanFemaleName = mongoose.model('GermanFemaleName', nameSchema);
+const GermanCity = mongoose.model('GermanCity', nameSchema);
+const GermanStreet = mongoose.model('GermanStreet', nameSchema);
+
 export {
   Surname,
   MaleName,
@@ -30,4 +36,9 @@ export {
   AmericanFemaleName,
   AmericanCity,
   AmericanStreet,
+  GermanSurname,
+  GermanMaleName,
+  GermanFemaleName,
+  GermanCity,
+  GermanStreet,
 };
