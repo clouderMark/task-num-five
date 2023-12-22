@@ -68,7 +68,7 @@ class User {
           .then((data) => data.name);
         const elString = `${el}`;
         const house = elString.slice(0, 2);
-        const phone = makePhone(elString);
+        const phone = makePhone(elString, thatRigion);
 
         const userData = makeErrors(errors, el, {
           name,
