@@ -31,14 +31,14 @@ const UserList = () => {
       getData({region, errors, seed, from: 0, to: !length ? USER.AMOUNT : length});
       setFirstLoad(false);
     }
-  }, [region, errors, waitInputChange]);
+  }, [errors, waitInputChange]);
 
   useEffect(() => {
     if (!firstLoad && !waitInputChange) {
       dispatch(setRows([]));
       getData({region, errors, seed, from: 0, to: USER.AMOUNT});
     }
-  }, [seed]);
+  }, [seed, region]);
 
   const handleScroll = (event: UIEvent<HTMLElement>) => {
     const {currentTarget} = event;

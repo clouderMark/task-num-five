@@ -19,12 +19,14 @@ class User {
         .slice(from, to);
 
       const users = sequence.map(async (el) => {
-        const isMan = sum(el) % 2 === 0;
-        const surnameLength = await regions[region].surnameLength();
-        const maleNameLength = await regions[region].maleNameLength();
-        const femaleNameLength = await regions[region].femaleNameLength();
-        const cityLength = await regions[region].cityLength();
-        const streetLength = await regions[region].streetLength();
+        const sumEl = sum(el);
+        const isMan = sumEl % 2 === 0;
+        const thatRigion = region === 0 ? (sumEl % 3) + 1 : region;
+        const surnameLength = await regions[thatRigion].surnameLength();
+        const maleNameLength = await regions[thatRigion].maleNameLength();
+        const femaleNameLength = await regions[thatRigion].femaleNameLength();
+        const cityLength = await regions[thatRigion].cityLength();
+        const streetLength = await regions[thatRigion].streetLength();
 
         const surnameIndex = makeLess(el, surnameLength);
 
@@ -33,8 +35,8 @@ class User {
         let id = '';
 
         if (isMan) {
-          const userSurname = await regions[region].surname(surnameIndex);
-          const userName = await regions[region].maleName(
+          const userSurname = await regions[thatRigion].surname(surnameIndex);
+          const userName = await regions[thatRigion].maleName(
             makeLess(el, maleNameLength)
           );
 
@@ -42,22 +44,25 @@ class User {
           name = userName.name;
           id = createId(userSurname._id, userName._id);
         } else {
-          const userSurname = await regions[region].surname(surnameIndex);
-          const userName = await regions[region].femaleName(
+          const userSurname = await regions[thatRigion].surname(surnameIndex);
+          const userName = await regions[thatRigion].femaleName(
             makeLess(el, femaleNameLength)
           );
 
-          surname = region === 2 ? makeRussianFemaleSurname(userSurname.name) : userSurname.name;
+          surname =
+            thatRigion === 2
+              ? makeRussianFemaleSurname(userSurname.name)
+              : userSurname.name;
           name = userName.name;
           id = createId(userSurname._id, userName._id);
         }
 
-        const city = await regions[region].cityName(makeLess(el, cityLength)).then(
-          (data) => data.name
-        );
-        const street = await regions[region].sreetName(
-          makeLess(el, streetLength)
-        ).then((data) => data.name);
+        const city = await regions[thatRigion]
+          .cityName(makeLess(el, cityLength))
+          .then((data) => data.name);
+        const street = await regions[thatRigion]
+          .sreetName(makeLess(el, streetLength))
+          .then((data) => data.name);
         const elString = `${el}`;
         const house = elString.slice(0, 2);
         const phone = makePhone(elString);
